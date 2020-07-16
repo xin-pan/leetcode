@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 public class Solution19Test {
 
     @Test
-    public void removeNthFromEnd() {
+    public void remove1thFromEnd_5Nodes() {
         Solution19.ListNode node5 = new Solution19.ListNode(5, null);
         Solution19.ListNode node4 = new Solution19.ListNode(4, node5);
         Solution19.ListNode node3 = new Solution19.ListNode(3, node4);
@@ -22,7 +22,7 @@ public class Solution19Test {
     }
 
     @Test
-    public void removeNthFromEnd2() {
+    public void remove2thFromEnd_5Nodes() {
         Solution19.ListNode node5 = new Solution19.ListNode(5, null);
         Solution19.ListNode node4 = new Solution19.ListNode(4, node5);
         Solution19.ListNode node3 = new Solution19.ListNode(3, node4);
@@ -40,7 +40,7 @@ public class Solution19Test {
     }
 
     @Test
-    public void removeNthFromEnd3() {
+    public void remove1thFromEnd_1Nodes() {
         Solution19.ListNode node1 = new Solution19.ListNode(1, null);
         Solution19.ListNode lastOneRemoved = Solution19.removeNthFromEnd(node1, 1);
 
@@ -48,7 +48,7 @@ public class Solution19Test {
     }
 
     @Test
-    public void removeNthFromEnd4() {
+    public void remove2thFromEnd_2Nodes() {
         Solution19.ListNode node2 = new Solution19.ListNode(2, null);
         Solution19.ListNode node1 = new Solution19.ListNode(1, node2);
         Solution19.ListNode lastOneRemoved = Solution19.removeNthFromEnd(node1, 2);
@@ -59,15 +59,15 @@ public class Solution19Test {
         assertEquals(resultNode1, lastOneRemoved);
     }
 
-//    @Test
-//    public void removeNthFromEnd5() {
-//        Solution19.ListNode node2 = new Solution19.ListNode(2, null);
-//        Solution19.ListNode node1 = new Solution19.ListNode(1, node2);
-//        Solution19.ListNode lastOneRemoved = Solution19.removeNthFromEnd(node1, 1);
-//
-//
-//        Solution19.ListNode resultNode1 = new Solution19.ListNode(1, null);
-//
-//        assertEquals(resultNode1, lastOneRemoved);
-//    }
+    @Test
+    public void remove1thFromEnd_2Nodes() {
+        Solution19.ListNode node2 = new Solution19.ListNode(2, null);
+        Solution19.ListNode node1 = new Solution19.ListNode(1, node2);
+        Solution19.ListNode lastOneRemoved = Solution19.removeNthFromEnd(node1, 1);
+
+
+        Solution19.ListNode resultNode1 = new Solution19.ListNode(1, null);
+
+        assertEquals(resultNode1, lastOneRemoved);
+    }
 }

@@ -1,18 +1,20 @@
 public class Solution19 {
     public static ListNode removeNthFromEnd(ListNode head, int n) {
         int index = 1;
-        ListNode oneBeforeNthFromEnd = head;
-        ListNode cur = head.next;
+        ListNode oneBeforeNthFromEnd = null;
+        ListNode cur = head;
         while (cur != null) {
             if (index > n) {
-                oneBeforeNthFromEnd = oneBeforeNthFromEnd.next;
+                if (oneBeforeNthFromEnd == null) {
+                    oneBeforeNthFromEnd = head;
+                } else {
+                    oneBeforeNthFromEnd = oneBeforeNthFromEnd.next;
+                }
             }
             index++;
             cur = cur.next;
         }
-        if (oneBeforeNthFromEnd.next == null) {
-            return null;
-        } else if (oneBeforeNthFromEnd == head) {
+        if (oneBeforeNthFromEnd == null) {
             head = head.next;
         } else {
             oneBeforeNthFromEnd.next = oneBeforeNthFromEnd.next.next;
