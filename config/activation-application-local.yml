@@ -1,0 +1,56 @@
+spring:
+  redis:
+    host: localhost
+
+document-path: /tmp/local-pam
+npos.documentPath: /tmp/npos
+
+
+
+cms:
+  blaze:
+    enabled: false
+  holding:
+    prefix: CMS_HOLDING_
+  service:
+    enabled: false
+    queue: CMS_QUEUE
+    fixedRate: 200
+    initialDelay: 5000
+    thread:
+      pool: 5
+
+  webPos:
+    enabled: true
+
+services:
+  ocrWrapperService:
+    name: ocrWrapperService
+    url: http://localhost:12306
+  auditService:
+    name: auditService
+    url: http://localhost:8081
+  taskService:
+    name: taskService
+    url: http://localhost:8083
+  ocrWrapper:
+    name: ocrWrapper
+    url: http://localhost:9090
+  cmsService:
+    name: cmsService
+    url: https://esbbst.cn.svc.corpintra.net/esb00/posweb/posservices/ProposalService.svc/web
+  cmsDdBankService:
+    name: cmsDdBankService
+    url: https://esbbst.cn.svc.corpintra.net/esb00/posweb/posservices/ProposalService.svc/web
+  dicService:
+    name: dicService
+    url: https://posuat1.mercedes-benz-finance.com.cn/masterdataservice/api/Setup/v1
+    token: "test-token"
+  nposService:
+    name: nposService
+    url: https://posuat1.mercedes-benz-finance.com.cn/masterdataservice/api/Setup/v1
+
+
+moco:
+  ocr:
+    enabled: false
