@@ -9,7 +9,7 @@ npos.documentPath: /tmp/npos
 
 cms:
   blaze:
-    enabled: false
+    enabled: true
   holding:
     prefix: CMS_HOLDING_
   service:
