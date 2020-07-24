@@ -1,0 +1,303 @@
+spring:
+  jpa:
+    database: SQLSERVER
+    show-sql: false
+    dialect: org.hibernate.dialect.SQLServer2012Dialect
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  datasource:
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 20
+    platform: sqlserver
+    url: jdbc:sqlserver://localhost:1433;databaseName=pam_leasing
+    username: SA
+    password: 1qaz@WSX3edc
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+  flyway:
+    table: activation_service_flyway_schema_history
+    enabled: true
+    out-of-order: true
+    url: ${spring.datasource.url}
+    username: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    placeholder-replacement: false
+    baselineOnMigrate: true
+
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+
+  shardingsphere:
+    datasource:
+      names: ds1,ds2
+      ds1:
+        type: org.apache.commons.dbcp2.BasicDataSource
+        driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+        url: jdbc:sqlserver://localhost:1433;databaseName=pam_afc
+        username: SA
+        password: 1qaz@WSX3edc
+        maxTotal: 16
+      ds2:
+        type: org.apache.commons.dbcp2.BasicDataSource
+        driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+        url: jdbc:sqlserver://localhost:1433;databaseName=pam_leasing
+        username: SA
+        password: 1qaz@WSX3edc
+        maxTotal: 16
+    sharding:
+      defaultDataSourceName: ds2
+      default-database-strategy:
+        inline:
+          sharding-column: company_id
+          algorithm-expression: ds$->{company_id}
+      tables:
+        activation_service_dd_bank:
+          actual-data-nodes: ds$->{1..2}.activation_service_dd_bank
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+            props:
+              worker:
+                id: 123
+        activation_service_application:
+          actual-data-nodes: ds$->{1..2}.activation_service_application
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+            props:
+              worker:
+                id: 123
+        activation_service_document:
+          actual-data-nodes: ds$->{1..2}.activation_service_document
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+            props:
+              worker:
+                id: 123
+        activation_service_upload_record:
+          actual-data-nodes: ds$->{1..2}.activation_service_upload_record
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+            props:
+              worker:
+                id: 123
+        activation_service_application_stakeholder:
+          actual-data-nodes: ds$->{1..2}.activation_service_application_stakeholder
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+            props:
+              worker:
+                id: 123
+        activation_service_application_rental_term:
+          actual-data-nodes: ds$->{1..2}.activation_service_application_rental_term
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+            props:
+              worker:
+                id: 123
+        activation_service_ocr_result:
+          actual-data-nodes: ds$->{1..2}.activation_service_ocr_result
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+            props:
+              worker:
+                id: 123
+        activation_service_request_history:
+          actual-data-nodes: ds$->{1..2}.activation_service_request_history
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+            props:
+              worker:
+                id: 123
+
+        activation_service_employment:
+          actual-data-nodes: ds$->{1..2}.activation_service_employment
+          key-generator:
+            column: id
+            type: SNOWFLAKE
+            props:
+              worker:
+                id: 123
+    props:
+      sql:
+        show: false
+
+  redis:
+    database: 0
+    host: redis
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+
+  cache:
+    expire-time: 900
+
+  messages:
+    basename: masterdata/messages
+    encoding: UTF-8
+  task:
+    execution:
+      pool:
+        max-size: 12
+
+flyway:
+  db:
+    afc:
+      url: ${spring.shardingsphere.datasource.ds1.url}
+      username: ${spring.datasource.username}
+      password: ${spring.datasource.password}
+      history:
+        table:
+          name: activation_service_flyway_schema_history
+
+services:
+  ocrWrapperService:
+    name: ocrWrapperService
+    url: http://ocrwrapperservice:8080
+  auditService:
+    name: auditService
+    url: http://auditservice:8080
+  taskService:
+    name: taskService
+    url: http://taskservice:8080
+  ocrWrapper:
+    name: ocrWrapper
+    url: http://localhost:9090
+  cmsService:
+    name: cmsService
+    url: https://esbbst.cn.svc.corpintra.net/esb00/posweb/posservices/ProposalService.svc/web
+  cmsDdBankService:
+    name: cmsDdBankService
+    url: https://esbbst.cn.svc.corpintra.net/esb00/posweb/posservices/ProposalService.svc/web
+  dicService:
+    name: dicService
+    url: https://posuat1.mercedes-benz-finance.com.cn/masterdataservice/api/Setup/v1
+    token: "test-token"
+  nposService:
+    name: nposService
+    url: https://posuat1.mercedes-benz-finance.com.cn/masterdataservice/api/Setup/v1
+  papiService:
+    name: papiService
+    url: https://esbbst.cn.svc.corpintra.net/esb00/ascent
+  udpService:
+    name: udpService
+    url: http://localhost:12305
+    token: "test-token"
+
+document-path: /data/pam
+secretKey: WSM`g5qbL`;@Bk5JgQEf87Z^Q6J@y^_Bk8bLPpBteARvlrOtd9:ptqlfshVz@hr4_mI;:9V4y9EpJyLEQVxE\pDUg@tYq;B;UU5aBQOzUY4IZTNX4krM`RJSY[WNz0vh
+
+udp:
+  service:
+    scheduled:
+      fetch-dealer:
+        cron: "30 6 12 ? * *"
+      fetch-fc:
+        cron: "0 0 12 ? * *"
+
+dic:
+  service:
+    enabled: false
+  idCardType:
+    cache:
+      key: ID_CARD_TYPE
+
+npos:
+  security:
+    algorithm: AES
+    secretKey: ir2utKOKYLGNcT3iQ7LBzZIGeLHC6On6
+  documentPath: /data/pam #可更改
+
+cms:
+  blaze:
+    enabled: false
+  holding:
+    prefix: CMS_HOLDING_
+  service:
+    enabled: false
+    queue: CMS_QUEUE
+    fixedRate: 200
+    initialDelay: 5000
+    thread:
+      pool: 5
+
+  webPos:
+    enabled: false
+moco:
+  ocr:
+    enabled: true
+
+# For version 1.1
+papi:
+  service:
+    enabled: false
+  mock:
+    enabled: false
+
+# For version 1.1
+checkpoint:
+  activeOnly: true
+
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: full
+      ocrWrapper:
+        connectTimeout: 600000
+        readTimeout: 600000
+      cmsDdBankService:
+        connectTimeout: 190000
+        readTimeout: 190000
+      papiService:
+        connectTimeout: 190000
+        readTimeout: 190000
+  exclude-field-pattern: .+\"documentContents\".+
+
+logging:
+  level:
+    com.daimler.pam.activation.client: DEBUG
+  config: classpath:logback-non-prod.xml
+doc:
+  manuallyByPass:
+    INVOICE: false
+    USED_CAR_AND_DEMO_CAR_DOCS: false
+    PBOC_AUTHORIZATION_LETTER: false
+    LOAN_OR_MORTGAGE_CONTRACT: false
+    BUSINESS_LICENSE: false
+    TAX_REGISTRATION: false
+    ZHONG_ZHENG_CODE: false
+    SD_RECEIPT: false
+    PURE_AUTO_DOCS: false
+    SALE_CONTRACT: false
+    DDM: false
+    APPLICATION_FORM: false
+    VRC: false
+    EQC_DOCS: false
+    INSURANCE: true
+pam:
+  traffic-rate:
+    channels: 6
+  wait-credit-check: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,loggers
+  health:
+    db:
+      enabled: false
