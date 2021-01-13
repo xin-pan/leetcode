@@ -14,13 +14,21 @@ public class Solution146LRUCache4 {
 
     public void put(int key, int value) {
         cache.put(key, value);
-        temperature.hottest = new Node(value);
-        temperature.coldest = new Node(value);
+        temperature.insertHottest(value);
     }
 
     class Temperature {
         Node coldest;
         Node hottest;
+
+        void insertHottest(int value) {
+            Node newHottest = new Node(value);
+            hottest = newHottest;
+            if (coldest == null) {
+                coldest = newHottest;
+            }
+
+        }
     }
 
     class Node {
