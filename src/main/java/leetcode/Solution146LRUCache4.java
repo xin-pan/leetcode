@@ -6,8 +6,8 @@ import java.util.Map;
 public class Solution146LRUCache4 {
 
     private final int capacity;
-    public Temperature temperature = new Temperature();
-    private Map<Integer, Node> cache = new HashMap<>();
+    Temperature temperature = new Temperature();
+    Map<Integer, Node> cache = new HashMap<>();
 
     public Solution146LRUCache4(int capacity) {
         this.capacity = capacity;
@@ -17,7 +17,8 @@ public class Solution146LRUCache4 {
         if (cache.containsKey(key)) {
             Node oldNode = cache.get(key);
             temperature.remove(oldNode);
-            temperature.insertHottest(key, oldNode.value);
+            Node node = temperature.insertHottest(key, oldNode.value);
+            cache.put(key, node);
         }
         return cache.getOrDefault(key, new Node(-1, -1)).value;
     }

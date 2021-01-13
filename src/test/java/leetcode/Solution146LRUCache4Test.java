@@ -32,6 +32,8 @@ public class Solution146LRUCache4Test {
         solution146LRUCache.put(2, 2);
         assertEquals(2, solution146LRUCache.temperature.hottest.value);
         assertEquals(1, solution146LRUCache.temperature.coldest.value);
+        assertEquals(solution146LRUCache.temperature.hottest, solution146LRUCache.cache.get(solution146LRUCache.temperature.hottest.key));
+        assertEquals(solution146LRUCache.temperature.coldest, solution146LRUCache.cache.get(solution146LRUCache.temperature.coldest.key));
     }
 
     @Test
@@ -42,6 +44,8 @@ public class Solution146LRUCache4Test {
         solution146LRUCache.get(1);
         assertEquals(1, solution146LRUCache.temperature.hottest.value);
         assertEquals(2, solution146LRUCache.temperature.coldest.value);
+        assertEquals(solution146LRUCache.temperature.hottest, solution146LRUCache.cache.get(solution146LRUCache.temperature.hottest.key));
+        assertEquals(solution146LRUCache.temperature.coldest, solution146LRUCache.cache.get(solution146LRUCache.temperature.coldest.key));
     }
 
     @Test
@@ -53,6 +57,8 @@ public class Solution146LRUCache4Test {
         solution146LRUCache.get(2);
         assertEquals(2, solution146LRUCache.temperature.hottest.value);
         assertEquals(1, solution146LRUCache.temperature.coldest.value);
+        assertEquals(solution146LRUCache.temperature.hottest, solution146LRUCache.cache.get(solution146LRUCache.temperature.hottest.key));
+        assertEquals(solution146LRUCache.temperature.coldest, solution146LRUCache.cache.get(solution146LRUCache.temperature.coldest.key));
     }
 
     @Test
