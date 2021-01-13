@@ -1,3 +1,5 @@
+package leetcode;
+
 import org.junit.Test;
 
 public class SolutionAmazonInterviewQ2Test {

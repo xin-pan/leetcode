@@ -1,3 +1,6 @@
+package leetcode;
+
+import leetcode.Solution7ReverseInteger;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

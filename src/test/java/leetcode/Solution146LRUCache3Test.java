@@ -1,3 +1,6 @@
+package leetcode;
+
+import leetcode.Solution146LRUCache3;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

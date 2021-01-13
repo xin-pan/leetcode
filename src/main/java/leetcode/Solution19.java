@@ -1,3 +1,5 @@
+package leetcode;
+
 public class Solution19 {
     public static ListNode removeNthFromEnd(ListNode head, int n) {
         int index = 1;

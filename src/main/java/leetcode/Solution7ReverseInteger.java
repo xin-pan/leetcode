@@ -1,3 +1,5 @@
+package leetcode;
+
 public class Solution7ReverseInteger {
     public static int reverse(int x) {
         long negativeReverse = x < 0 ? -1 : 1;

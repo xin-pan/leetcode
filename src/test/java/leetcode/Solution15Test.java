@@ -1,3 +1,6 @@
+package leetcode;
+
+import leetcode.Solution15;
 import org.junit.Test;
 
 import java.util.List;

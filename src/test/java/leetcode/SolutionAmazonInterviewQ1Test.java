@@ -1,3 +1,6 @@
+package leetcode;
+
+import leetcode.SolutionAmazonInterviewQ1;
 import org.junit.Test;
 
 import java.util.Arrays;
