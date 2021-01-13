@@ -16,13 +16,20 @@ public class Solution146LRUCache5 {
     public void put(int key, int value) {
         Node node = new Node(value);
         this.cache.put(key, node);
-        sortedCache.head = node;
-        sortedCache.tail = node;
+        this.sortedCache.attachHead(node);
     }
 
     class DoubleLinkedList {
         Node head;
         Node tail;
+
+        Node attachHead(Node node) {
+            head = node;
+            if (tail == null) {
+                tail = node;
+            }
+            return node;
+        }
     }
 
     private class Node {

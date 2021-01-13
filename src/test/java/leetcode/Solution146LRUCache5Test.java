@@ -25,4 +25,13 @@ public class Solution146LRUCache5Test {
         assertEquals(lruCache.cache.get(1), lruCache.sortedCache.head);
         assertEquals(lruCache.cache.get(1), lruCache.sortedCache.tail);
     }
+
+    @Test
+    public void should_save_sorted_cache_when_put_twice() {
+        Solution146LRUCache5 lruCache = new Solution146LRUCache5();
+        lruCache.put(1, 1);
+        lruCache.put(2, 2);
+        assertEquals(lruCache.cache.get(2), lruCache.sortedCache.head);
+        assertEquals(lruCache.cache.get(1), lruCache.sortedCache.tail);
+    }
 }
