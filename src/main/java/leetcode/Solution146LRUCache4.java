@@ -5,29 +5,39 @@ import java.util.Map;
 
 public class Solution146LRUCache4 {
 
+    private final int capacity;
     public Temperature temperature = new Temperature();
     private Map<Integer, Node> cache = new HashMap<>();
+
+    public Solution146LRUCache4(int capacity) {
+        this.capacity = capacity;
+    }
 
     public int get(int key) {
         if (cache.containsKey(key)) {
             Node oldNode = cache.get(key);
             temperature.remove(oldNode);
-            temperature.insertHottest(oldNode.value);
+            temperature.insertHottest(key, oldNode.value);
         }
-        return cache.getOrDefault(key, new Node(-1)).value;
+        return cache.getOrDefault(key, new Node(-1, -1)).value;
     }
 
     public void put(int key, int value) {
-        Node newHottest = temperature.insertHottest(value);
+        Node newHottest = temperature.insertHottest(value, key);
         cache.put(key, newHottest);
+
+        if (cache.size() > capacity) {
+            cache.remove(temperature.coldest.key);
+            temperature.remove(temperature.coldest);
+        }
     }
 
     class Temperature {
         Node coldest;
         Node hottest;
 
-        Node insertHottest(int value) {
-            Node newHottest = new Node(value);
+        Node insertHottest(int value, int key) {
+            Node newHottest = new Node(key, value);
             newHottest.next = hottest;
             if (hottest != null) {
                 hottest.prev = newHottest;
@@ -60,9 +70,11 @@ public class Solution146LRUCache4 {
     class Node {
         Node prev;
         Node next;
+        public int key;
         int value;
 
-        public Node(int value) {
+        public Node(int key, int value) {
+            this.key = key;
             this.value = value;
         }
     }
