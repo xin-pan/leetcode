@@ -1,6 +1,5 @@
 package leetcode;
 
-import leetcode.Solution146LRUCache3;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -19,4 +18,15 @@ public class Solution146LRUCache3Test {
         assertEquals(1, solution146LRUCache.get(1));
         assertEquals(2, solution146LRUCache.get(2));
     }
+
+//    @Test
+//    public void should_expire_cached_value_when_exceeding_capacity() {
+//        Solution146LRUCache3 solution146LRUCache = new Solution146LRUCache3(1);
+//        solution146LRUCache.put(1, 1);
+//        solution146LRUCache.put(2, 2);
+//        solution146LRUCache.put(3, 3);
+//        assertEquals(-1, solution146LRUCache.get(1));
+//        assertEquals(2, solution146LRUCache.get(2));
+//        assertEquals(3, solution146LRUCache.get(3));
+//    }
 }
