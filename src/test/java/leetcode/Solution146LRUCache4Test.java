@@ -16,4 +16,12 @@ public class Solution146LRUCache4Test {
         solution146LRUCache.put(1, 1);
         assertEquals(1, solution146LRUCache.get(1));
     }
+
+    @Test
+    public void should_save_temperature_when_put_once() {
+        Solution146LRUCache4 solution146LRUCache = new Solution146LRUCache4();
+        solution146LRUCache.put(1, 1);
+        assertEquals(1, solution146LRUCache.temperature.hottest.value);
+        assertEquals(1, solution146LRUCache.temperature.coldest.value);
+    }
 }
