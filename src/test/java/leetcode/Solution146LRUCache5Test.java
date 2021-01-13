@@ -50,4 +50,21 @@ public class Solution146LRUCache5Test {
         assertEquals(lruCache.cache.get(1), lruCache.sortedCache.head);
         assertEquals(lruCache.cache.get(2), lruCache.sortedCache.tail);
     }
+
+    @Test
+    public void should_refresh_middle_node_as_hottest_when_cache_hit() {
+        Solution146LRUCache5 lruCache = new Solution146LRUCache5();
+        lruCache.put(1, 1);
+        lruCache.put(2, 2);
+        lruCache.put(3, 3);
+        assertEquals(3, lruCache.sortedCache.head.value);
+        assertEquals(1, lruCache.sortedCache.tail.value);
+        assertEquals(lruCache.cache.get(3), lruCache.sortedCache.head);
+        assertEquals(lruCache.cache.get(1), lruCache.sortedCache.tail);
+        assertEquals(2, lruCache.get(2));
+        assertEquals(2, lruCache.sortedCache.head.value);
+        assertEquals(1, lruCache.sortedCache.tail.value);
+        assertEquals(lruCache.cache.get(2), lruCache.sortedCache.head);
+        assertEquals(lruCache.cache.get(1), lruCache.sortedCache.tail);
+    }
 }
