@@ -18,30 +18,48 @@ public class Solution146LRUCache4 {
     }
 
     public void put(int key, int value) {
-        Node node = new Node(value);
-        cache.put(key, node);
-        temperature.insertHottest(value);
+        Node newHottest = temperature.insertHottest(value);
+        cache.put(key, newHottest);
     }
 
     class Temperature {
         Node coldest;
         Node hottest;
 
-        void insertHottest(int value) {
+        Node insertHottest(int value) {
             Node newHottest = new Node(value);
+            newHottest.next = hottest;
+            if (hottest != null) {
+                hottest.prev = newHottest;
+            }
             hottest = newHottest;
             if (coldest == null) {
                 coldest = newHottest;
             }
 
+            return newHottest;
         }
 
-        public void remove(Node oldNode) {
-            coldest = hottest;
+        public void remove(Node toBeRemovedNode) {
+            if (coldest == toBeRemovedNode && hottest != toBeRemovedNode) {
+                toBeRemovedNode.prev.next = null;
+                coldest = toBeRemovedNode.prev;
+            } else if (coldest != toBeRemovedNode && hottest == toBeRemovedNode) {
+                toBeRemovedNode.next.prev = null;
+                hottest = toBeRemovedNode.next;
+            } else if (coldest == toBeRemovedNode && hottest == toBeRemovedNode) {
+                hottest = null;
+                coldest = null;
+            } else {
+                toBeRemovedNode.prev.next = toBeRemovedNode.next;
+                toBeRemovedNode.next.prev = toBeRemovedNode.prev;
+            }
         }
     }
 
     class Node {
+        Node prev;
+        Node next;
         int value;
 
         public Node(int value) {

@@ -43,4 +43,15 @@ public class Solution146LRUCache4Test {
         assertEquals(1, solution146LRUCache.temperature.hottest.value);
         assertEquals(2, solution146LRUCache.temperature.coldest.value);
     }
+
+    @Test
+    public void should_refresh_middle_node_as_hottest_when_cache_hit() {
+        Solution146LRUCache4 solution146LRUCache = new Solution146LRUCache4();
+        solution146LRUCache.put(1, 1);
+        solution146LRUCache.put(2, 2);
+        solution146LRUCache.put(3, 3);
+        solution146LRUCache.get(2);
+        assertEquals(2, solution146LRUCache.temperature.hottest.value);
+        assertEquals(1, solution146LRUCache.temperature.coldest.value);
+    }
 }
