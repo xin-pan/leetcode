@@ -1,0 +1,42 @@
+package leetcode;
+
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+
+public class Solution146LRUCache6 {
+
+    private final int capacity;
+    private LinkedList sortedValue = new LinkedList();
+    private Map<Integer, Integer> cache = new HashMap<>();
+
+    public Solution146LRUCache6() {
+        this(5);
+    }
+
+    public Solution146LRUCache6(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public int get(int key) {
+
+        if(cache.containsKey(key)){
+            Integer cached = cache.get(key);
+            sortedValue.remove(cached);
+            sortedValue.addFirst(cached);
+            return cached;
+        }else{
+            return -1;
+        }
+    }
+
+    public void put(int key, int value) {
+        cache.put(key, value);
+        sortedValue.addFirst(value);
+
+        if (cache.size() > this.capacity) {
+            cache.remove(sortedValue.getLast());
+        }
+    }
+}
