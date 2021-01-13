@@ -16,4 +16,13 @@ public class Solution146LRUCache5Test {
         lruCache.put(1, 1);
         assertEquals(1, lruCache.get(1));
     }
+
+    @Test
+    public void should_save_sorted_cache_when_put_once() {
+        Solution146LRUCache5 lruCache = new Solution146LRUCache5();
+        lruCache.put(1, 1);
+        assertEquals(1, lruCache.get(1));
+        assertEquals(lruCache.cache.get(1), lruCache.sortedCache.head);
+        assertEquals(lruCache.cache.get(1), lruCache.sortedCache.tail);
+    }
 }

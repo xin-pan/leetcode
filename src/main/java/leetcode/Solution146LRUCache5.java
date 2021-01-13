@@ -6,13 +6,30 @@ import java.util.Map;
 
 public class Solution146LRUCache5 {
 
-    private Map<Integer, Integer> cache = new HashMap<>();
+    DoubleLinkedList sortedCache = new DoubleLinkedList();
+    Map<Integer, Node> cache = new HashMap<>();
 
     public int get(int key) {
-        return this.cache.getOrDefault(key, -1);
+        return this.cache.getOrDefault(key, new Node(-1)).value;
     }
 
     public void put(int key, int value) {
-        this.cache.put(key, value);
+        Node node = new Node(value);
+        this.cache.put(key, node);
+        sortedCache.head = node;
+        sortedCache.tail = node;
+    }
+
+    class DoubleLinkedList {
+        Node head;
+        Node tail;
+    }
+
+    private class Node {
+        int value;
+
+        public Node(int value) {
+            this.value = value;
+        }
     }
 }
