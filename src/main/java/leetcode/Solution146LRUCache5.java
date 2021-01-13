@@ -6,8 +6,17 @@ import java.util.Map;
 
 public class Solution146LRUCache5 {
 
+    private final int capacity;
     DoubleLinkedList sortedCache = new DoubleLinkedList();
     Map<Integer, Node> cache = new HashMap<>();
+
+    public Solution146LRUCache5() {
+        this(5);
+    }
+
+    public Solution146LRUCache5(int capacity) {
+        this.capacity = capacity;
+    }
 
     public int get(int key) {
         if (cache.containsKey(key)) {
@@ -23,6 +32,11 @@ public class Solution146LRUCache5 {
     public void put(int key, int value) {
         Node node = this.sortedCache.attachHead(key, value);
         this.cache.put(key, node);
+
+        if (this.cache.size() > capacity) {
+            cache.remove(sortedCache.tail.key);
+            sortedCache.removeTail();
+        }
     }
 
     class DoubleLinkedList {
@@ -56,6 +70,10 @@ public class Solution146LRUCache5 {
                 node.next.prev = node.prev;
                 node.prev.next = node.next;
             }
+        }
+
+        public void removeTail() {
+            delete(sortedCache.tail);
         }
     }
 
