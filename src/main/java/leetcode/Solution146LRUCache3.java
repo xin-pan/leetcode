@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Solution146LRUCache3 {
     private final int capacity;
-    private final static Node DEFAULT_NODE = new Node(-1, -1);
+    private static final Node DEFAULT_NODE = new Node(-1, -1);
     private final Temperature temperature = new Temperature();
     private Map<Integer, Node> cache = new HashMap();
 
@@ -16,6 +16,7 @@ public class Solution146LRUCache3 {
     public int get(int key) {
         if (cache.containsKey(key)) {
             Node oldNode = cache.get(key);
+            temperature.remove(oldNode);
             Node hottest = temperature.addAndMarkAsHottest(key, oldNode.value);
             cache.put(key, hottest);
         }
@@ -23,27 +24,51 @@ public class Solution146LRUCache3 {
     }
 
     public void put(int key, int value) {
+        if (cache.containsKey(key)) {
+            Node oldNode = cache.get(key);
+            temperature.remove(oldNode);
+        }
         Node hottest = temperature.addAndMarkAsHottest(key, value);
         cache.put(key, hottest);
+
+        if (cache.size() > capacity) {
+            cache.remove(temperature.coldest.key);
+            temperature.remove(temperature.coldest);
+        }
     }
 
     private class Temperature {
-        Node head;
-        Node tail;
+        Node hottest;
+        Node coldest;
 
         public Node addAndMarkAsHottest(int key, int value) {
             Node node = new Node(key, value);
-            node.next = head;
+            node.next = hottest;
 
-            if (head == null) {
-                head = node;
-            } else {
-                head.prev = node;
+            if (hottest != null) {
+                hottest.prev = node;
             }
-            if (tail == null) {
-                tail = node;
+            hottest = node;
+            if (coldest == null) {
+                coldest = node;
             }
             return node;
+        }
+
+        public void remove(Node node) {
+            if (node == hottest && node == coldest) {
+                hottest = null;
+                coldest = null;
+            } else if (node == hottest && node != coldest) {
+                node.next.prev = null;
+                hottest = node.next;
+            } else if (node != hottest && node == coldest) {
+                node.prev.next = null;
+                coldest = node.prev;
+            } else {
+                node.prev.next = node.next;
+                node.next.prev = node.prev;
+            }
         }
     }
 
