@@ -5,9 +5,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class Solution146LRUCache6 {
+public class Solution146LRUCache6 extends Solution146LRUCacheAbstract{
 
-    private final int capacity;
     private LinkedList sortedValue = new LinkedList();
     private Map<Integer, Integer> cache = new HashMap<>();
 
@@ -16,9 +15,10 @@ public class Solution146LRUCache6 {
     }
 
     public Solution146LRUCache6(int capacity) {
-        this.capacity = capacity;
+        super(capacity);
     }
 
+    @Override
     public int get(int key) {
 
         if(cache.containsKey(key)){
@@ -31,6 +31,7 @@ public class Solution146LRUCache6 {
         }
     }
 
+    @Override
     public void put(int key, int value) {
         cache.put(key, value);
         sortedValue.addFirst(value);

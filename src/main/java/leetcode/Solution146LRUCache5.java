@@ -4,9 +4,8 @@ package leetcode;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Solution146LRUCache5 {
+public class Solution146LRUCache5 extends Solution146LRUCacheAbstract {
 
-    private final int capacity;
     DoubleLinkedList sortedCache = new DoubleLinkedList();
     Map<Integer, Node> cache = new HashMap<>();
 
@@ -15,9 +14,10 @@ public class Solution146LRUCache5 {
     }
 
     public Solution146LRUCache5(int capacity) {
-        this.capacity = capacity;
+        super(capacity);
     }
 
+    @Override
     public int get(int key) {
         if (cache.containsKey(key)) {
             Node existingNode = cache.get(key);
@@ -29,6 +29,7 @@ public class Solution146LRUCache5 {
         return this.cache.getOrDefault(key, new Node(-1, -1)).value;
     }
 
+    @Override
     public void put(int key, int value) {
         Node node = this.sortedCache.attachHead(key, value);
         this.cache.put(key, node);

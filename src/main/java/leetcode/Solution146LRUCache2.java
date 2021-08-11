@@ -6,16 +6,15 @@ import java.util.Map;
 /**
  *
  */
-class Solution146LRUCache2 {
-    private int capacity;
+class Solution146LRUCache2 extends Solution146LRUCacheAbstract {
     DoubleLinkedList sortedNodes = new DoubleLinkedList();
     private Map<Integer, Node> cache = new HashMap<>();
 
     public Solution146LRUCache2(int capacity) {
-        this.capacity = capacity;
+        super(capacity);
     }
 
-
+    @Override
     public int get(int key) {
         if (cache.containsKey(key)) {
             Node node = cache.get(key);
@@ -28,6 +27,7 @@ class Solution146LRUCache2 {
         }
     }
 
+    @Override
     public void put(int key, int value) {
         if (cache.containsKey(key)) {
             Node node = cache.get(key);

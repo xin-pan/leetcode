@@ -12,7 +12,7 @@ public class Solution146LRUCache5Test {
 
     @Test
     public void should_get_when_cached() {
-        Solution146LRUCache5 lruCache = new Solution146LRUCache5();
+        Solution146LRUCache lruCache = new Solution146LRUCache5();
         lruCache.put(1, 1);
         assertEquals(1, lruCache.get(1));
     }

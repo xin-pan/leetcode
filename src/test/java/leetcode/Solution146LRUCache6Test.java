@@ -19,7 +19,7 @@ public class Solution146LRUCache6Test {
 
     @Test
     public void  should_expire_coldest_when_exceeding_cache_capacity() {
-        Solution146LRUCache6 lruCache = new Solution146LRUCache6(2);
+        Solution146LRUCache lruCache = new Solution146LRUCache6(2);
         lruCache.put(1, 1);
         lruCache.put(2, 2);
         lruCache.put(3, 3);

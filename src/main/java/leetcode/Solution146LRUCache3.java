@@ -3,16 +3,16 @@ package leetcode;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Solution146LRUCache3 {
-    private final int capacity;
+public class Solution146LRUCache3 extends Solution146LRUCacheAbstract {
     private static final Node DEFAULT_NODE = new Node(-1, -1);
     private final Temperature temperature = new Temperature();
     private Map<Integer, Node> cache = new HashMap();
 
     public Solution146LRUCache3(int capacity) {
-        this.capacity = capacity;
+        super(capacity);
     }
 
+    @Override
     public int get(int key) {
         if (cache.containsKey(key)) {
             Node oldNode = cache.get(key);
@@ -23,6 +23,7 @@ public class Solution146LRUCache3 {
         return cache.getOrDefault(key, DEFAULT_NODE).value;
     }
 
+    @Override
     public void put(int key, int value) {
         if (cache.containsKey(key)) {
             Node oldNode = cache.get(key);
