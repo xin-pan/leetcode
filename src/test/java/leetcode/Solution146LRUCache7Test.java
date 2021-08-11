@@ -17,4 +17,12 @@ public class Solution146LRUCache7Test {
         lruCache.put(1, 1);
         assertEquals(1, lruCache.get(1));
     }
+    @Test
+    public void should_get_negative_when_cache_expires() {
+        Solution146LRUCache lruCache = new Solution146LRUCache7(2);
+        lruCache.put(1, 1);
+        lruCache.put(2, 2);
+        lruCache.put(3, 3);
+        assertEquals(-1, lruCache.get(1));
+    }
 }
