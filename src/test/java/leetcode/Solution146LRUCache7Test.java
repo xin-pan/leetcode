@@ -11,4 +11,10 @@ public class Solution146LRUCache7Test {
         lruCache.put(1, 1);
         assertEquals(-1, lruCache.get(2));
     }
+    @Test
+    public void should_get_negative_when_within_cache() {
+        Solution146LRUCache lruCache = new Solution146LRUCache7(2);
+        lruCache.put(1, 1);
+        assertEquals(1, lruCache.get(1));
+    }
 }
