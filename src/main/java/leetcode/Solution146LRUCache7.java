@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 public class Solution146LRUCache7 extends Solution146LRUCacheAbstract {
-    private Map<Integer, Integer> cache = new HashMap<>();
+    private Map<Integer, Node> cache = new HashMap<>();
     private LinkedList<Node> sorted = new LinkedList<>();
 
     class Node {
@@ -24,7 +24,13 @@ public class Solution146LRUCache7 extends Solution146LRUCacheAbstract {
 
     @Override
     public int get(int key) {
-        return cache.getOrDefault(key, -1);
+        Node defaultValue = new Node(-1, -1);
+        Node node = cache.getOrDefault(key, defaultValue);
+        if (node.value != defaultValue.value) {
+            sorted.remove(node);
+            sorted.addLast(node);
+        }
+        return node.value;
     }
 
     @Override
@@ -33,7 +39,8 @@ public class Solution146LRUCache7 extends Solution146LRUCacheAbstract {
             Node first = sorted.removeFirst();
             cache.remove(first.key);
         }
-        cache.put(key, value);
-        sorted.addLast(new Node(key, value));
+        Node node = new Node(key, value);
+        cache.put(key, node);
+        sorted.addLast(node);
     }
 }
