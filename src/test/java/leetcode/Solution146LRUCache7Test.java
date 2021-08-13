@@ -36,4 +36,12 @@ public class Solution146LRUCache7Test {
         assertEquals(1, lruCache.get(1));
         assertEquals(-1, lruCache.get(2));
     }
+    @Test
+    public void should_replace_cache() {
+        Solution146LRUCache lruCache = new Solution146LRUCache7(3);
+        lruCache.put(1, 1);
+        lruCache.put(2, 2);
+        lruCache.put(2, 3);
+        assertEquals(3, lruCache.get(2));
+    }
 }

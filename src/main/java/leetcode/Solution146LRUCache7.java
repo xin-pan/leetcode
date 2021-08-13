@@ -4,20 +4,51 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Solution146LRUCache7 extends Solution146LRUCacheAbstract {
-    public static final int NON_CACHED = -1;
     private Map<Integer, Node> cache = new HashMap<>();
     private DoubleLinkedList sorted = new DoubleLinkedList();
+
+    public Solution146LRUCache7(int capacity) {
+        super(capacity);
+    }
+
+    @Override
+    public int get(int key) {
+        Node node = cache.get(key);
+        if (node == null) {
+            return -1;
+        } else {
+            sorted.remove(node);
+            sorted.addLast(node);
+            return node.value;
+        }
+    }
+
+    @Override
+    public void put(int key, int value) {
+        if (sorted.size >= capacity) {
+            Node first = sorted.removeFirst();
+            cache.remove(first.key);
+        }
+        Node node = new Node(key, value);
+        cache.put(key, node);
+        sorted.addLast(node);
+    }
+    private class Node {
+        int key;
+        int value;
+        Node prev;
+        Node next;
+
+        public Node(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
 
     class DoubleLinkedList {
         Node first;
         Node last;
         private int size = 0;
-
-        Node removeFirst() {
-            Node oldFirst = this.first;
-            remove(oldFirst);
-            return oldFirst;
-        }
 
         void remove(Node node) {
             if (node.prev != null) {
@@ -52,47 +83,11 @@ public class Solution146LRUCache7 extends Solution146LRUCacheAbstract {
             size++;
         }
 
-        public int size() {
-            return size;
+        Node removeFirst() {
+            Node oldFirst = this.first;
+            remove(oldFirst);
+            return oldFirst;
         }
     }
 
-    private class Node {
-        int key;
-        int value;
-        Node prev;
-        Node next;
-
-        public Node(int key, int value) {
-            this.key = key;
-            this.value = value;
-        }
-    }
-
-    public Solution146LRUCache7(int capacity) {
-        super(capacity);
-    }
-
-    @Override
-    public int get(int key) {
-        Node node = cache.get(key);
-        if (node != null) {
-            sorted.remove(node);
-            sorted.addLast(node);
-            return node.value;
-        } else {
-            return NON_CACHED;
-        }
-    }
-
-    @Override
-    public void put(int key, int value) {
-        if (sorted.size() >= capacity) {
-            Node first = sorted.removeFirst();
-            cache.remove(first.key);
-        }
-        Node node = new Node(key, value);
-        cache.put(key, node);
-        sorted.addLast(node);
-    }
 }
