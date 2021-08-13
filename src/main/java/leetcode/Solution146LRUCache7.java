@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Solution146LRUCache7 extends Solution146LRUCacheAbstract {
+    public static final int NON_CACHED = -1;
     private Map<Integer, Node> cache = new HashMap<>();
     private DoubleLinkedList sorted = new DoubleLinkedList();
 
@@ -56,7 +57,7 @@ public class Solution146LRUCache7 extends Solution146LRUCacheAbstract {
         }
     }
 
-    class Node {
+    private class Node {
         int key;
         int value;
         Node prev;
@@ -74,13 +75,14 @@ public class Solution146LRUCache7 extends Solution146LRUCacheAbstract {
 
     @Override
     public int get(int key) {
-        Node defaultValue = new Node(-1, -1);
-        Node node = cache.getOrDefault(key, defaultValue);
-        if (node.value != defaultValue.value) {
+        Node node = cache.get(key);
+        if (node != null) {
             sorted.remove(node);
             sorted.addLast(node);
+            return node.value;
+        } else {
+            return NON_CACHED;
         }
-        return node.value;
     }
 
     @Override
