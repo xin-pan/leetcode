@@ -12,7 +12,7 @@ public class Solution146LRUCache7Test {
         assertEquals(-1, lruCache.get(2));
     }
     @Test
-    public void should_get_negative_when_within_cache() {
+    public void should_get_value_when_within_cache() {
         Solution146LRUCache lruCache = new Solution146LRUCache7(2);
         lruCache.put(1, 1);
         assertEquals(1, lruCache.get(1));
@@ -26,7 +26,7 @@ public class Solution146LRUCache7Test {
         assertEquals(-1, lruCache.get(1));
     }
     @Test
-    public void should_expire_least_recently_used() {
+    public void should_refresh_cache_when_used_recently() {
         Solution146LRUCache lruCache = new Solution146LRUCache7(3);
         lruCache.put(1, 1);
         lruCache.put(2, 2);
