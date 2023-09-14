@@ -28,15 +28,18 @@ public class Solution146LRUCache13Test {
         assertEquals(2, cache.get(2));
     }
     @Test
-    public void should_switch_lru_when_get_value(){
-
-        var cache = new Solution146LRUCache13(2);
+    public void should_refresh_lru_when_get_value(){
+        var cache = new Solution146LRUCache13(3);
         cache.put(1, 1);
         cache.put(2, 2);
-        cache.get(1);// 2 becomes LRU
         cache.put(3, 3);
+        cache.get(1);// 2, 3 becomes LRU
+        cache.put(4, 4);
+        cache.put(5, 5);
         assertEquals(1, cache.get(1));
         assertEquals(-1, cache.get(2));
-        assertEquals(3, cache.get(3));
+        assertEquals(-1, cache.get(3));
+        assertEquals(4, cache.get(4));
+        assertEquals(5, cache.get(5));
     }
 }
