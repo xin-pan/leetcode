@@ -1,5 +1,7 @@
-package leetcode;
+package leetcode.solution146;
 
+import leetcode.solution146.Solution146LRUCache;
+import leetcode.solution146.Solution146LRUCache1;
 import org.junit.Ignore;
 import org.junit.Test;
 

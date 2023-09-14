@@ -1,4 +1,4 @@
-package leetcode;
+package leetcode.solution146;
 
 import java.util.ArrayList;
 import java.util.HashMap;

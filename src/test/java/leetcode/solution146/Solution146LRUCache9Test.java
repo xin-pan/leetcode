@@ -1,25 +1,28 @@
-package leetcode;
+package leetcode.solution146;
 
+import leetcode.solution146.Solution146LRUCache;
+import leetcode.solution146.Solution146LRUCache9;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-public class Solution146LRUCache7Test {
+public class Solution146LRUCache9Test {
+
     @Test
     public void should_get_negative_when_out_of_cache() {
-        Solution146LRUCache lruCache = new Solution146LRUCache7(2);
+        Solution146LRUCache lruCache = new Solution146LRUCache9(2);
         lruCache.put(1, 1);
         assertEquals(-1, lruCache.get(2));
     }
     @Test
     public void should_get_value_when_within_cache() {
-        Solution146LRUCache lruCache = new Solution146LRUCache7(2);
+        Solution146LRUCache lruCache = new Solution146LRUCache9(2);
         lruCache.put(1, 1);
         assertEquals(1, lruCache.get(1));
     }
     @Test
     public void should_get_negative_when_cache_expires() {
-        Solution146LRUCache lruCache = new Solution146LRUCache7(2);
+        Solution146LRUCache lruCache = new Solution146LRUCache9(2);
         lruCache.put(1, 1);
         lruCache.put(2, 2);
         lruCache.put(3, 3);
@@ -27,7 +30,7 @@ public class Solution146LRUCache7Test {
     }
     @Test
     public void should_refresh_cache_when_used_recently() {
-        Solution146LRUCache lruCache = new Solution146LRUCache7(3);
+        Solution146LRUCache lruCache = new Solution146LRUCache9(3);
         lruCache.put(1, 1);
         lruCache.put(2, 2);
         lruCache.put(3, 3);
@@ -38,10 +41,19 @@ public class Solution146LRUCache7Test {
     }
     @Test
     public void should_replace_cache() {
-        Solution146LRUCache lruCache = new Solution146LRUCache7(3);
+        Solution146LRUCache lruCache = new Solution146LRUCache9(3);
         lruCache.put(1, 1);
         lruCache.put(2, 2);
         lruCache.put(2, 3);
+        assertEquals(3, lruCache.get(2));
+    }
+    @Test
+    public void should_not_expire_lru_node_when_put_duplicate() {
+        Solution146LRUCache lruCache = new Solution146LRUCache9(2);
+        lruCache.put(1, 1);
+        lruCache.put(2, 2);
+        lruCache.put(2, 3);
+        assertEquals(1, lruCache.get(1));
         assertEquals(3, lruCache.get(2));
     }
 }

@@ -1,5 +1,7 @@
-package leetcode;
+package leetcode.solution146;
 
+import leetcode.solution146.Solution146LRUCache;
+import leetcode.solution146.Solution146LRUCache5;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
