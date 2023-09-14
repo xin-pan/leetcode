@@ -1,7 +1,5 @@
 package leetcode.solution146;
 
-import leetcode.solution146.Solution146LRUCache;
-import leetcode.solution146.Solution146LRUCache7;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

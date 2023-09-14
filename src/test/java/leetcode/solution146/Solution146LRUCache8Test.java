@@ -1,10 +1,8 @@
 package leetcode.solution146;
 
-import leetcode.solution146.Solution146LRUCache;
-import leetcode.solution146.Solution146LRUCache8;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class Solution146LRUCache8Test {
 
