@@ -1,11 +1,13 @@
-package leetcode.solution146;
+package leetcode.solution146.performance;
 
+
+import leetcode.solution146.Solution146LRUCacheAbstract;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class Solution146LRUCache6 extends Solution146LRUCacheAbstract{
+public class Solution146LRUCache6 extends Solution146LRUCacheAbstract {
 
     private LinkedList sortedValue = new LinkedList();
     private Map<Integer, Integer> cache = new HashMap<>();

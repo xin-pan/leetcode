@@ -1,5 +1,8 @@
-package leetcode.solution146;
+package leetcode.solution146.performance;
 
+import leetcode.solution146.Solution146LRUCache2;
+import leetcode.solution146.Solution146LRUCacheAbstract;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -7,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class Solution146LRUCache2Test {
     @Test
     public void should_get_negative_when_empty() {
-        assertEquals(-1, new Solution146LRUCache2(1).get(1));
+        Assert.assertEquals(-1, new Solution146LRUCache2(1).get(1));
     }
 
     @Test

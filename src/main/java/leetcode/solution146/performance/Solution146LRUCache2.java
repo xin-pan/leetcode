@@ -1,4 +1,6 @@
-package leetcode.solution146;
+package leetcode.solution146.performance;
+
+import leetcode.solution146.Solution146LRUCacheAbstract;
 
 import java.util.HashMap;
 import java.util.Map;

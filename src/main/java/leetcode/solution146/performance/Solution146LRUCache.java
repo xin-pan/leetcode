@@ -1,4 +1,4 @@
-package leetcode.solution146;
+package leetcode.solution146.performance;
 
 public interface Solution146LRUCache {
     int get(int key);

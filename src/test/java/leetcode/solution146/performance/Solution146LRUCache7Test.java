@@ -1,4 +1,4 @@
-package leetcode.solution146;
+package leetcode.solution146.performance;
 
 import org.junit.Test;
 
