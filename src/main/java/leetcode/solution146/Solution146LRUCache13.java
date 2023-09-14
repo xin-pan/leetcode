@@ -22,6 +22,7 @@ public class Solution146LRUCache13 {
     }
 
     public int get(int key) {
+        this.markAsRU(key);
         return cache.getOrDefault(key, DEFAULT_VALUE);
     }
 
