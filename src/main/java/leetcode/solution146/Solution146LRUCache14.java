@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Solution146LRUCache14 {
     public static final int DEFAULT_LIMIT = 8;
@@ -12,7 +13,7 @@ public class Solution146LRUCache14 {
     private List<Integer> queue = new LinkedList<>();
 
     public Solution146LRUCache14(int limit) {
-        this.limit=limit;
+        this.limit = limit;
     }
 
     public Solution146LRUCache14() {
@@ -20,11 +21,16 @@ public class Solution146LRUCache14 {
     }
 
     public int get(int key) {
+        refreshQueue(key);
         return cache.getOrDefault(key, -1);
     }
 
+    private void refreshQueue(int key) {
+        this.queue = this.queue.stream().dropWhile(x -> x.intValue() == key).collect(Collectors.toList());
+    }
+
     public void put(int key, int value) {
-        if(cache.size()>=limit){
+        if (cache.size() >= limit) {
             this.removeLRU();
         }
         this.cache.put(key, value);
