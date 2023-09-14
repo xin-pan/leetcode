@@ -17,4 +17,14 @@ public class Solution146LRUCache13Test {
         cache.put(1, 1);
         assertEquals(1, cache.get(1));
     }
+
+    @Test
+    public void should_expire_lru_when_put_value_exceeds_limit(){
+
+        var cache = new Solution146LRUCache13(1);
+        cache.put(1, 1);
+        cache.put(2, 2);
+        assertEquals(-1, cache.get(1));
+        assertEquals(2, cache.get(2));
+    }
 }
