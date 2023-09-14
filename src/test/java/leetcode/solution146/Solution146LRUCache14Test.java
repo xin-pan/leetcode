@@ -11,4 +11,11 @@ public class Solution146LRUCache14Test {
         assertEquals(-1, cache.get(1));
     }
 
+    @Test
+    public void should_get_cache_value_when_key_hit(){
+        var cache = new Solution146LRUCache14();
+        cache.put(1,1);
+        assertEquals(1, cache.get(1));
+    }
+
 }
