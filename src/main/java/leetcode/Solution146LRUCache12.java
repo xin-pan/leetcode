@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class Solution146LRUCache12 {
     public static final int DEFAULT_SIZE = 8;
-    private Map<String, String> cache= new HashMap<>();
+    private Map<String, String> cache = new HashMap<>();
     private List<String> queue = new ArrayList<>();
     private int size;
 
@@ -26,12 +26,12 @@ public class Solution146LRUCache12 {
     }
 
     private void markAsLastRecentUsed(String key) {
-       queue=  queue.stream().dropWhile(x->x.equals(key)).collect(Collectors.toList());
-       queue.add(key);//last used in the tail of the queue
+        queue = queue.stream().dropWhile(x -> x.equals(key)).collect(Collectors.toList());
+        queue.add(key);//last used in the tail of the queue
     }
 
     public void put(String key, String value) {
-        if(cache.size()>=size){
+        if (cache.size() >= size) {
             this.removeLeastRecentUsed();
         }
         cache.put(key, value);

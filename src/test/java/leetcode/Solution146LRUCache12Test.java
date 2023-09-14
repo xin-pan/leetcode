@@ -19,10 +19,13 @@ public class Solution146LRUCache12Test {
     }
 
     @Test
-    public void should_expire_when_cache_hit_limit(){
-        var cache = new Solution146LRUCache12(1);
+    public void should_expire_least_recent_used_when_cache_hit_limit(){
+        var cache = new Solution146LRUCache12(2);
         cache.put("1", "1");
         cache.put("2", "2");
+        cache.put("3", "3");
         assertNull(cache.get("1"));
+        assertEquals("2", cache.get("2"));
+        assertEquals("3", cache.get("3"));
     }
 }
