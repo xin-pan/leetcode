@@ -24,4 +24,16 @@ public class LRUSolutionTest {
         assertEquals(-1, cache.get(1));
         assertEquals(2, cache.get(2));
     }
+    @Test
+    public void should_refresh_LRU_when_get_from_cache() {
+        var cache = new LRUSolution(2);
+        cache.put(1, 1);
+        cache.put(2, 2);
+        cache.get(1);
+
+        cache.put(3, 3);
+        assertEquals(1, cache.get(1));
+        assertEquals(-1, cache.get(2));
+        assertEquals(3, cache.get(3));
+    }
 }

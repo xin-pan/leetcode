@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LRUSolution {
     private final int sizeLimit;
@@ -23,6 +24,8 @@ public class LRUSolution {
     }
 
     public int get(int key) {
+        this.queue = this.queue.stream().dropWhile(x -> x == key).collect(Collectors.toList());
+        this.queue.add(key);
         return this.cache.getOrDefault(key, -1);
     }
 }
