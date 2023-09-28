@@ -17,4 +17,12 @@ public class LRUSolutionTest {
         var cache = new LRUSolution();
         assertEquals(-1, cache.get(Integer.valueOf(1)));
     }
+    @Test
+    public void should_get_negative_when_head_when_cache_size_exceeds(){
+        var cache = new LRUSolution(1);
+        cache.put(1,1);
+        cache.put(2,2);
+        assertEquals(-1, cache.get(Integer.valueOf(1)));
+        assertEquals(2, cache.get(Integer.valueOf(2)));
+    }
 }
