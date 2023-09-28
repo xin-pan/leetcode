@@ -11,6 +11,6 @@ public class LRUSolution {
     }
 
     public int get(int key) {
-        return this.cache.get(key);
+        return this.cache.getOrDefault(key, -1);
     }
 }
