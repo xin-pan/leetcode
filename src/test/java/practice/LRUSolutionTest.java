@@ -11,4 +11,10 @@ public class LRUSolutionTest {
         cache.put(Integer.valueOf(1), Integer.valueOf(1));
         assertEquals(1, cache.get(Integer.valueOf(1)));
     }
+
+    @Test
+    public void should_get_negative_when_not_hit(){
+        var cache = new LRUSolution();
+        assertEquals(-1, cache.get(Integer.valueOf(1)));
+    }
 }
