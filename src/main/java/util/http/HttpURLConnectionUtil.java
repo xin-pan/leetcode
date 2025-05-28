@@ -159,7 +159,8 @@ public class HttpURLConnectionUtil {
 
     public static void main(String[] args) {
 //        String message = doPost("https://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=13026194071", "");
-        String message = doGet("https://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=13026194071");
+//        String message = doGet("https://api.restful-api.dev/objects?id=ff80818196f2a23f01970652d55c27d9");
+        String message = doGet("https://api.restful-api.dev/objects");
         System.out.println(message);
     }
 }
