@@ -1,5 +1,9 @@
 package util.http;
 
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +12,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URI;
 
 public class HttpURLConnectionUtil {
     public static String doGet(String httpUrl){
@@ -18,7 +23,7 @@ public class HttpURLConnectionUtil {
         StringBuffer result = new StringBuffer();
         try {
             //创建连接
-            URL url = new URL(httpUrl);
+            URL url = URI.create(httpUrl).toURL();
             connection = (HttpURLConnection) url.openConnection();
             //设置请求方式
             connection.setRequestMethod("GET");
@@ -157,10 +162,16 @@ public class HttpURLConnectionUtil {
         return result.toString();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
 //        String message = doPost("https://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=13026194071", "");
 //        String message = doGet("https://api.restful-api.dev/objects?id=ff80818196f2a23f01970652d55c27d9");
         String message = doGet("https://api.restful-api.dev/objects");
-        System.out.println(message);
+        JSONArray json = (JSONArray) new JSONParser().parse(message);
+
+//        System.out.println("城市："+json.get("city").toString());
+//        System.out.println("温度："+json.get("temp").toString());
+
+        Object x = json.get(0);
+        System.out.println(x);
     }
 }
